@@ -32,6 +32,6 @@ def print_portfolio(port: list[Stock]):
     for s in port:
         print("%10s %10d %10.2f" % (s.name, s.shares, s.price))
 
-
-portfolio = read_portfolio("Data/portfolio.csv")
-print_portfolio(portfolio)
+if __name__ == '__main__':
+    portfolio = read_portfolio("Data/portfolio.csv")
+    print_portfolio(portfolio)
