@@ -26,7 +26,6 @@ class Stock:
     @price.setter
     def price(self, value):
         if isinstance(value, self._types[2]) and value >= 0.0:
-            print("test")
             self._price = value
         else:
             raise TypeError(f"Must be a positive {self._types[2].__name__}")
