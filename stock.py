@@ -1,28 +1,37 @@
 class Stock:
     _types = (str, int, float)
 
-    __slots__ = ('name', '_price', '_shares')
+    __slots__ = ("name", "_price", "_shares")
 
     def __init__(self, name, shares, price):
         self.name = name
         self.shares = shares
         self.price = price
 
+    def __repr__(self):
+        return f"Stock({self.name!r}, {self.shares}, {self.price})"
+
+    def __eq__(self, other):
+        return isinstance(other, Stock) and all(
+            getattr(self, att) == getattr(other, att)
+            for att in ["name", "shares", "price"]
+        )
+
     @property
     def shares(self):
         return self._shares
-    
+
     @shares.setter
     def shares(self, value):
         if isinstance(value, self._types[1]) and value >= 0:
             self._shares = value
         else:
             raise TypeError(f"Must be a positive {self._types[1].__name__}")
-        
+
     @property
     def price(self):
         return self._price
-    
+
     @price.setter
     def price(self, value):
         if isinstance(value, self._types[2]) and value >= 0.0:
@@ -48,4 +57,9 @@ def print_portfolio(port: list[Stock]):
     for s in port:
         print("%10s %10d %10.2f" % (s.name, s.shares, s.price))
 
-s = Stock('GOOG', 100, 490.1)
+
+if __name__ == "__main__":
+    s = Stock("GOOG", 100, 490.1)
+    q = Stock("GOOG", 100, 490.1)
+    print(repr(s))
+    print(s==q)
